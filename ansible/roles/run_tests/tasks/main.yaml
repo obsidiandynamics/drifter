@@ -1,5 +1,5 @@
 ---
-- name: Soak
+- name: Run build
   shell: |
     # prepare the base dir
     mkdir -p {{drifter_home}}
@@ -25,17 +25,30 @@
       git pull
     fi
 
-    # run the test and observe the error code
-    ../drifter/loop.sh 0 10 :testxx
-    exit_code=$?
+    # clean up artefacts from prior builds
+    if [ -e build/looped/latest-timestamp ]; then
+      rm build/looped/latest-timestamp
+    fi
+    if [ -e build/looped/latest.tgz ]; then
+      rm build/looped/latest.tgz
+    fi
+    if [ -e build/looped/success ]; then
+      rm build/looped/success
+    fi
 
-    # if the build erred, create a tarball with the captured artefacts for retrieval
-    if [ "$exit_code" != "0" ]; then
-      echo "Failed build detected."
-      cd build/looped
+    # run the test and observe the error code
+    ../drifter/loop.sh 0 10 :test
+    exit_code=$?
+    
+    mkdir -p build/looped
+    cd build/looped
+    if [ "$exit_code" == "0" ]; then
+      # build succeeded: indicate as much
+      touch success
+    else
+      # build failed: create a timestamp file and a pack artefacts into a tarball for retrieval
       timestamp=`cat latest-timestamp`
-      tar -zcvf latest.tgz ${timestamp}
-      export
+      tar -zcf latest.tgz ${timestamp}
     fi
   become: true
   become_user: "{{ansible_user}}"
@@ -43,7 +56,24 @@
 - name: Retrieve artefacts
   fetch:
     src: "{{drifter_home}}/{{repo_name}}/build/looped/latest.tgz"
-    dest: "looped/{{drifter_host}}-{{drifter_id}}.tgz"
+    dest: "looped/{{drifter_host}}-{{drifter_id}}/latest.tgz"
     flat: true
   become: true
   become_user: "{{ansible_user}}"
+
+- name: Retrieve timestamp
+  fetch:
+    src: "{{drifter_home}}/{{repo_name}}/build/looped/latest-timestamp"
+    dest: "looped/{{drifter_host}}-{{drifter_id}}/latest-timestamp"
+    flat: true
+  become: true
+  become_user: "{{ansible_user}}"
+
+- name: Check success status
+  shell: |
+    if [ ! -e {{drifter_home}}/{{repo_name}}/build/looped/success ]; then
+      exit 1
+    fi
+  become: true
+  become_user: "{{ansible_user}}"
+ 

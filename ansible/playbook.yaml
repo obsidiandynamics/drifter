@@ -1,5 +1,6 @@
 ---
 - hosts: drifter_hosts
   become: True
+  any_errors_fatal: true
   roles:
   - run_tests
