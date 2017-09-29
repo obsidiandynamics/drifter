@@ -1,0 +1,5 @@
+---
+- hosts: drifter_hosts
+  become: True
+  roles:
+  - run_tests

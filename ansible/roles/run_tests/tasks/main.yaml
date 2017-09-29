@@ -1,0 +1,37 @@
+---
+- name: Clone or pull repo
+  shell: |
+    pwd
+    # prepare the base dir
+    drifter_dir=~/.drifter
+    mkdir -p $drifter_dir
+    cd $drifter_dir
+
+    # clone drifter from git; otherwise update
+    if [ ! -e drifter ]; then
+      git clone https://github.com/obsidiandynamics/drifter
+    else
+      cd drifter
+      git pull
+      cd ..
+    fi
+
+    # get the name of the repo - the last segment of the repo URL
+    repo_name=`echo {{target_repo}} | awk -F "/" '{print $NF}'`
+
+    # clone target repo if it is not there; otherwise update
+    if [ ! -e $repo_name ]; then
+      git clone {{target_repo}} -b {{target_branch}} $repo_name
+      cd $repo_name
+    else
+      cd $repo_name
+      git fetch
+      git checkout {{target_branch}}
+      git pull
+    fi
+
+    ../drifter/loop.sh 0 10 :test
+
+    echo "hello"
+  become: true
+  become_user: "{{ansible_user}}"
