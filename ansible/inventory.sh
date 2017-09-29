@@ -1,8 +1,13 @@
 #!/bin/bash
 
+# Optional parameters
+if [ -z $DRIFTER_TARGET_BRANCH ]; then
+  DRIFTER_TARGET_BRANCH="master"
+fi
+
+# Mandatory parameters
 if [ -z $DRIFTER_HOSTS || \
-     -z $DRIFTER_TARGET_REPO || \
-     -z $DRIFTER_TARGET_BRANCH ]; then
+     -z $DRIFTER_TARGET_REPO ]; then
   echo "One or more environment variables not set:"
   echo "  DRIFTER_HOSTS: $DRIFTER_HOSTS"
   echo "  DRIFTER_TARGET_REPO: $DRIFTER_TARGET_REPO"
