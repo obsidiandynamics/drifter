@@ -1,11 +1,18 @@
 #!/bin/bash
 
-if [ -z $DRIFTER_HOSTS ]; then
-  echo "DRIFTER_HOSTS not set"
+if [ -z $DRIFTER_HOSTS || \
+     -z $DRIFTER_TARGET_REPO || \
+     -z $DRIFTER_TARGET_BRANCH ]; then
+  echo "One or more environment variables not set:"
+  echo "  DRIFTER_HOSTS: $DRIFTER_HOSTS"
+  echo "  DRIFTER_TARGET_REPO: $DRIFTER_TARGET_REPO"
+  echo "  DRIFTER_TARGET_BRANCH: $DRIFTER_TARGET_BRANCH"
   exit 1
 fi
 
 dhs=""
+repo_name=`echo $DRIFTER_TARGET_REPO | awk -F "/" '{print $NF}'`
+drifter_home="~/.drifter"
 
 echo -e "{\n"
 
@@ -18,7 +25,9 @@ cat << EOM
     "drifter_$id": {
         "hosts": [ "$dh" ],
         "vars": {
-            "ansible_port": 2222
+            "ansible_port": 2222,
+            "drifter_id": $id,
+            "drifter_host": "$dh"
         }
     },
 EOM
@@ -34,6 +43,8 @@ cat << EOM
             "ansible_ssh_private_key_file": "$ANSIBLE_SSH_PRIVATE_KEY_FILE",
             "target_repo": "$DRIFTER_TARGET_REPO",
             "target_branch": "$DRIFTER_TARGET_BRANCH",
+            "repo_name": "$repo_name",
+            "drifter_home": "$drifter_home"
         }
     }
 EOM

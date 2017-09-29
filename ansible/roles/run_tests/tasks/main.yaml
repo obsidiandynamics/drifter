@@ -1,11 +1,9 @@
 ---
-- name: Clone or pull repo
+- name: Soak
   shell: |
-    pwd
     # prepare the base dir
-    drifter_dir=~/.drifter
-    mkdir -p $drifter_dir
-    cd $drifter_dir
+    mkdir -p {{drifter_home}}
+    cd {{drifter_home}}
 
     # clone drifter from git; otherwise update
     if [ ! -e drifter ]; then
@@ -16,22 +14,36 @@
       cd ..
     fi
 
-    # get the name of the repo - the last segment of the repo URL
-    repo_name=`echo {{target_repo}} | awk -F "/" '{print $NF}'`
-
     # clone target repo if it is not there; otherwise update
-    if [ ! -e $repo_name ]; then
-      git clone {{target_repo}} -b {{target_branch}} $repo_name
-      cd $repo_name
+    if [ ! -e {{repo_name}} ]; then
+      git clone {{target_repo}} -b {{target_branch}} {{repo_name}}
+      cd {{repo_name}}
     else
-      cd $repo_name
+      cd {{repo_name}}
       git fetch
       git checkout {{target_branch}}
       git pull
     fi
 
-    ../drifter/loop.sh 0 10 :test
+    # run the test and observe the error code
+    ../drifter/loop.sh 0 10 :testxx
+    exit_code=$?
 
-    echo "hello"
+    # if the build erred, create a tarball with the captured artefacts for retrieval
+    if [ "$exit_code" != "0" ]; then
+      echo "Failed build detected."
+      cd build/looped
+      timestamp=`cat latest-timestamp`
+      tar -zcvf latest.tgz ${timestamp}
+      export
+    fi
+  become: true
+  become_user: "{{ansible_user}}"
+
+- name: Retrieve artefacts
+  fetch:
+    src: "{{drifter_home}}/{{repo_name}}/build/looped/latest.tgz"
+    dest: "looped/{{drifter_host}}-{{drifter_id}}.tgz"
+    flat: true
   become: true
   become_user: "{{ansible_user}}"
