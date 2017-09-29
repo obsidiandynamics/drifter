@@ -47,6 +47,7 @@ while [ true ]; do
       cp -r $build_dir $target_dir
     done
     echo -e "${RED}Gradle process completed with code ${exit_code};${NC} saved test results in ${target_date}"
+    echo $date > ${target_base}/latest-timestamp
     exit 1
   elif [ "${exit_code}" == "130" ]; then
     echo -e "\n${YELLOW}Gradle process interrupted; exiting.${NC}"
