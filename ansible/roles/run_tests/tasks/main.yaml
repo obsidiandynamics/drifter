@@ -37,7 +37,7 @@
     fi
 
     # run the test and observe the error code
-    ../drifter/loop.sh 0 30 :test
+    ../drifter/loop.sh 0 30 :test --no-daemon
     exit_code=$?
     
     mkdir -p build/looped
