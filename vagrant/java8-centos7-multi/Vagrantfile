@@ -1,0 +1,45 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+servers=[
+  {
+    :hostname => "vm0",
+    :name => "java8-centos7-vm0",
+    :ram => 1024,
+    :cpu => 2,
+    :ssh_port => 2200
+  },
+  {
+    :hostname => "vm1",
+    :name => "java8-centos7-vm1",
+    :ram => 2048,
+    :cpu => 4,
+    :ssh_port => 2201
+  }
+]
+
+Vagrant.configure(2) do |config|
+    servers.each do |machine|
+        config.vm.define machine[:hostname] do |node|
+            node.vm.box = "centos/7"
+            node.vm.hostname = machine[:hostname]
+
+            node.vm.provider "virtualbox" do |vb|
+              vb.gui = false
+              vb.name = machine[:name]
+              vb.memory = machine[:ram]
+              vb.cpus = machine[:cpu]
+            end
+
+            node.vm.network :forwarded_port, guest: 22, host: machine[:ssh_port], id: "ssh"
+            node.ssh.insert_key = false
+            node.ssh.port = machine[:ssh_port]
+            node.vm.box_check_update = false
+            node.vm.synced_folder "~", "/vagrant_data"
+
+            node.vm.provision "shell", inline: <<-SHELL
+              yum install epel-release java-1.8.0-openjdk-devel git net-tools nload -y
+            SHELL
+        end
+    end
+end
