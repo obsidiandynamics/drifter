@@ -2,14 +2,14 @@
 - name: Run build
   shell: |
     set -x
-    
+
     # prepare the base dir
     mkdir -p {{drifter_home}}
     cd {{drifter_home}}
 
     # clone drifter from git; otherwise update
     if [ ! -e drifter ]; then
-      git clone https://github.com/obsidiandynamics/drifter
+      git clone https://github.com/obsidiandynamics/drifter -b {{lib_branch}}
     else
       cd drifter
       git pull
@@ -40,7 +40,7 @@
 
     # run the test and observe the error code
     loop_args_array=(`echo "{{loop_args}}" | sed 's/,/\n/g'`)
-    ../drifter/loop.sh $loop_args_array
+    ../drifter/loop.sh ${loop_args_array[@]}
     exit_code=$?
     
     mkdir -p build/looped

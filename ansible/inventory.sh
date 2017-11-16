@@ -7,6 +7,9 @@ fi
 if [ -z "$DRIFTER_LOOP_ARGS" ]; then
   export DRIFTER_LOOP_ARGS="0 600"
 fi
+if [ -z "$DRIFTER_LIB_BRANCH" ]; then
+  export DRIFTER_LIB_BRANCH="master"
+fi
 
 # Mandatory parameters
 if [ -z "$ANSIBLE_HOSTS" -o \
@@ -53,6 +56,7 @@ cat << EOM
       "ansible_connection": "ssh",
       "ansible_user": "$ANSIBLE_USER",
       "ansible_ssh_private_key_file": "$ANSIBLE_SSH_PRIVATE_KEY_FILE",
+      "lib_branch": "$DRIFTER_LIB_BRANCH",
       "target_repo": "$DRIFTER_TARGET_REPO",
       "target_branch": "$DRIFTER_TARGET_BRANCH",
       "repo_name": "$repo_name",
