@@ -1,6 +1,8 @@
 ---
 - name: Run build
   shell: |
+    set -x
+    
     # prepare the base dir
     mkdir -p {{drifter_home}}
     cd {{drifter_home}}
