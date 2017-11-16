@@ -1,5 +1,7 @@
 #!/bin/bash
 
+./list-env.sh
+
 while [ true ]; do
   ansible-playbook playbook.yaml -i inventory.sh -vvv
   exit_code=$?

@@ -37,7 +37,8 @@
     fi
 
     # run the test and observe the error code
-    ../drifter/loop.sh 0 30 :test --no-daemon
+    loop_args_array=(`echo "{{loop_args}}" | sed 's/,/\n/g'`)
+    ../drifter/loop.sh $loop_args_array
     exit_code=$?
     
     mkdir -p build/looped
@@ -46,7 +47,7 @@
       # build succeeded: indicate as much
       touch success
     else
-      # build failed: create a timestamp file and a pack artefacts into a tarball for retrieval
+      # build failed: create a timestamp file and pack artefacts into a tarball for retrieval
       timestamp=`cat latest-timestamp`
       tar -zcf latest.tgz ${timestamp}
     fi

@@ -2,16 +2,16 @@
 
 # Optional parameters
 if [ -z "$DRIFTER_TARGET_BRANCH" ]; then
-  DRIFTER_TARGET_BRANCH="master"
+  export DRIFTER_TARGET_BRANCH="master"
+fi
+if [ -z "$DRIFTER_LOOP_ARGS" ]; then
+  export DRIFTER_LOOP_ARGS="0 600"
 fi
 
 # Mandatory parameters
 if [ -z "$ANSIBLE_HOSTS" -o \
      -z "$DRIFTER_TARGET_REPO" ]; then
-  echo "One or more environment variables not set:"
-  echo "  ANSIBLE_HOSTS: $ANSIBLE_HOSTS"
-  echo "  DRIFTER_TARGET_REPO: $DRIFTER_TARGET_REPO"
-  echo "  DRIFTER_TARGET_BRANCH: $DRIFTER_TARGET_BRANCH"
+  echo "One or more environment variables not set"
   exit 1
 fi
 
@@ -56,7 +56,8 @@ cat << EOM
       "target_repo": "$DRIFTER_TARGET_REPO",
       "target_branch": "$DRIFTER_TARGET_BRANCH",
       "repo_name": "$repo_name",
-      "drifter_home": "$drifter_home"
+      "drifter_home": "$drifter_home",
+      "loop_args": "$DRIFTER_LOOP_ARGS"
     }
   }
 EOM

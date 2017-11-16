@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -lt 1 ]; then
+if [ $# -lt 2 ]; then
   echo "Usage: loop.sh <sleep seconds> <duration seconds or -1 for indefinite> [gradle params]"
   echo "e.g. loop.sh 10 300 -x :test :indigo-examples:test --debug" 
   exit 1
@@ -48,6 +48,9 @@ while [ true ]; do
     done
     echo -e "${RED}Gradle process completed with code ${exit_code};${NC} saved test results in ${target_date}"
     echo $date > ${target_base}/latest-timestamp
+    exit 1
+  elif [ "${exit_code}" == "126" -o "${exit_code}" == "127" ]; then  
+    echo -e "${RED}Gradle process completed with code ${exit_code}.${NC}"
     exit 1
   elif [ "${exit_code}" == "130" ]; then
     echo -e "\n${YELLOW}Gradle process interrupted; exiting.${NC}"
