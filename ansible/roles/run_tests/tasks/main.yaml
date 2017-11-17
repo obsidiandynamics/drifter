@@ -1,7 +1,9 @@
 ---
 - name: Run build
   shell: |
-    set -x
+    if [ {{verbose}} == "true" ]; then
+      set -x
+    fi
 
     # prepare the base dir
     mkdir -p {{drifter_home}}
@@ -59,7 +61,7 @@
 - name: Retrieve artefacts
   fetch:
     src: "{{drifter_home}}/{{repo_name}}/build/looped/latest.tgz"
-    dest: "looped/{{drifter_host}}-{{drifter_id}}/latest.tgz"
+    dest: "../out/{{drifter_host}}-{{drifter_id}}/latest.tgz"
     flat: true
   become: true
   become_user: "{{ansible_user}}"
@@ -67,7 +69,7 @@
 - name: Retrieve timestamp
   fetch:
     src: "{{drifter_home}}/{{repo_name}}/build/looped/latest-timestamp"
-    dest: "looped/{{drifter_host}}-{{drifter_id}}/latest-timestamp"
+    dest: "../out/{{drifter_host}}-{{drifter_id}}/latest-timestamp"
     flat: true
   become: true
   become_user: "{{ansible_user}}"

@@ -5,16 +5,20 @@ if [ -z "$DRIFTER_TARGET_BRANCH" ]; then
   export DRIFTER_TARGET_BRANCH="master"
 fi
 if [ -z "$DRIFTER_LOOP_ARGS" ]; then
-  export DRIFTER_LOOP_ARGS="0 600"
+  export DRIFTER_LOOP_ARGS="0 600 test"
 fi
 if [ -z "$DRIFTER_LIB_BRANCH" ]; then
   export DRIFTER_LIB_BRANCH="master"
 fi
+if [ -z "$DRIFTER_VERBOSE" ]; then
+  export DRIFTER_VERBOSE="false"
+fi
 
 # Mandatory parameters
-if [ -z "$ANSIBLE_HOSTS" -o \
+if [ -z "$DRIFTER_NODES" -o \
      -z "$DRIFTER_TARGET_REPO" ]; then
-  echo "One or more environment variables not set"
+  echo "One or more environment variables not set:"
+  ../list-env.sh
   exit 1
 fi
 
@@ -25,7 +29,8 @@ drifter_home="~/.drifter"
 echo -e "{\n"
 
 id=0
-for dh in $ANSIBLE_HOSTS; do
+drifter_nodes_array=(`echo $DRIFTER_NODES | sed 's/,/ /g'`)
+for dh in ${drifter_nodes_array[@]}; do
   df_host=`echo $dh | awk -F ":" '{print $1}'`
   df_port=`echo $dh | awk -F ":" '{print $2}'`
   if [ "$df_port" == "" ]; then
@@ -61,7 +66,8 @@ cat << EOM
       "target_branch": "$DRIFTER_TARGET_BRANCH",
       "repo_name": "$repo_name",
       "drifter_home": "$drifter_home",
-      "loop_args": "$DRIFTER_LOOP_ARGS"
+      "loop_args": "$DRIFTER_LOOP_ARGS",
+      "verbose": "$DRIFTER_VERBOSE"
     }
   }
 EOM
