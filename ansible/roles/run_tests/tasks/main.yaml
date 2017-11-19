@@ -42,6 +42,7 @@
 
     # run the test and observe the error code
     loop_args_array=(`echo "{{loop_args}}" | sed 's/,/\n/g'`)
+    export DRIFTER_LOOP_LOG=true
     ../drifter/loop.sh ${loop_args_array[@]}
     exit_code=$?
     
