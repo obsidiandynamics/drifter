@@ -57,11 +57,12 @@
     fi
   become: true
   become_user: "{{ansible_user}}"
+  ignore_errors: yes
 
 - name: Retrieve artefacts
   fetch:
     src: "{{drifter_home}}/{{repo_name}}/build/looped/latest.tgz"
-    dest: "../out/{{drifter_host}}-{{drifter_id}}/latest.tgz"
+    dest: "../out/{{ansible_host}}-{{ansible_port}}/latest.tgz"
     flat: true
   become: true
   become_user: "{{ansible_user}}"
@@ -69,7 +70,7 @@
 - name: Retrieve timestamp
   fetch:
     src: "{{drifter_home}}/{{repo_name}}/build/looped/latest-timestamp"
-    dest: "../out/{{drifter_host}}-{{drifter_id}}/latest-timestamp"
+    dest: "../out/{{ansible_host}}-{{ansible_port}}/latest-timestamp"
     flat: true
   become: true
   become_user: "{{ansible_user}}"

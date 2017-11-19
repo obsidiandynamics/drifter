@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -lt 2 ]; then
+if [ $# -lt 3 ]; then
   echo "Usage: loop.sh <sleep seconds> <duration seconds or -1 for indefinite> [gradle params]"
   echo "e.g. loop.sh 10 300 -x :test :indigo-examples:test --debug" 
   exit 1
