@@ -70,3 +70,5 @@ Example (assuming `drifter` is cloned alongside `mytestproject`):
 cd mytestproject
 ../drifter/loop.sh 0 600 test
 ```
+
+The output is stored in `build/looped`.
