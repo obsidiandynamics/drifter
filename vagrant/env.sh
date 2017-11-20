@@ -1,7 +1,7 @@
 # Sources Vagrant-specific environment variables.
 #
 # Usage:
-# . ./env-vagrant.sh
+# . ./env.sh
 #
 
 export ANSIBLE_USER="vagrant"
