@@ -22,6 +22,7 @@ $echo_cmd $NC
 
 cd ansible
 while [ true ]; do
+  start_time=`date +%s`
   if [ "$DRIFTER_VERBOSE" == "true" ]; then
     ansible-playbook playbook.yaml -i inventory.sh -vvv
   else
@@ -47,5 +48,9 @@ while [ true ]; do
       done
     fi
     exit 1;
+  else
+    end_time=`date +%s`
+    took=$((end_time - start_time))
+    $echo_cmd "${CYAN}Took $took seconds.${NC}"
   fi
 done
