@@ -35,6 +35,12 @@ To print the environment variables without running the playbook:
 ```
 
 ## Example: running Drifter on Vagrant boxes
+First, ensure the essential Vagrant plugins are installed:
+```sh
+vagrant plugin install vagrant-vbguest
+vagrant plugin install vagrant-timezone
+```
+
 Starting Vagrant:
 ```sh
 cd vagrant/java8-centos7-multi
@@ -44,7 +50,7 @@ vagrant up
 Running the Drifter playbook:
 ```sh
 . vagrant/env.sh
-export DRIFTER_NODES=127.0.0.1:2200,127.0.0.1:2201
+export DRIFTER_NODES=127.0.0.1:2200,127.0.0.1:2201,127.0.0.1:2202,127.0.0.1:2203
 export DRIFTER_TARGET_REPO=https://github.com/obsidiandynamics/indigo
 ./play.sh
 ```
