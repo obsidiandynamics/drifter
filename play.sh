@@ -22,6 +22,7 @@ $echo_cmd $NC
 
 cd ansible
 while [ true ]; do
+  $echo_cmd "Starting run on $(date)"
   start_time=`date +%s`
   if [ "$DRIFTER_VERBOSE" == "true" ]; then
     ansible-playbook playbook.yaml -i inventory.sh -vvv
