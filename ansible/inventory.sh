@@ -5,7 +5,7 @@ if [ -z "$DRIFTER_TARGET_BRANCH" ]; then
   export DRIFTER_TARGET_BRANCH="master"
 fi
 if [ -z "$DRIFTER_LOOP_ARGS" ]; then
-  export DRIFTER_LOOP_ARGS="0 600 test"
+  export DRIFTER_LOOP_ARGS="0 600 test --info --stacktrace --no-daemon"
 fi
 if [ -z "$DRIFTER_LIB_BRANCH" ]; then
   export DRIFTER_LIB_BRANCH="master"

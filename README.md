@@ -22,7 +22,7 @@ Drifter takes the following environment variables:
 * `DRIFTER_NODES`: a comma-separated list of nodes to orchestrate, with optional SSH ports - **mandatory**, e.g. `127.0.0.1:2200,127.0.0.1:2201`
 * `DRIFTER_TARGET_REPO`: the target repo to test - **mandatory**, e.g. `https://github.com/obsidiandynamics/indigo`
 * `DRIFTER_TARGET_BRANCH`: the branch to test - optional, defaults to `master`
-* `DRIFTER_LOOP_ARGS`: arguments to the bundled `loop.sh` script - optional, defaults to `0 600 test`
+* `DRIFTER_LOOP_ARGS`: arguments to the bundled `loop.sh` script - optional, defaults to `0 600 test  --info --stacktrace --no-daemon`
   - The first argument is the number of seconds to pause between successive runs;
   - The second argument is the minimum number of seconds to soak for (the actual time will be somewhat longer, as `loop.sh` never interrupts a build midway);
   - The third and subsequent arguments are passed directly to the Gradle wrapper, along with `cleanTest`.
