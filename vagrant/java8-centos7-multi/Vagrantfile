@@ -5,14 +5,14 @@ servers=[
   {
     :hostname => "vm0",
     :name => "java8-centos7-vm0",
-    :ram => 512,
+    :ram => 768,
     :cpu => 1,
     :ssh_port => 2200
   },
   {
     :hostname => "vm1",
     :name => "java8-centos7-vm1",
-    :ram => 512,
+    :ram => 768,
     :cpu => 1,
     :ssh_port => 2201
   },
