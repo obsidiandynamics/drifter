@@ -1,5 +1,6 @@
-Drifter
+<img src="https://raw.githubusercontent.com/wiki/obsidiandynamics/drifter/images/drifter-logo.png" width="90px" alt="logo"/> Drifter
 ===
+
 Distributed soak testing of Gradle builds. Drifter lets you soak builds across a pool of machines.
 
 # Why Drifter
