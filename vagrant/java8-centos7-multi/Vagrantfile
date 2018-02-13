@@ -18,16 +18,30 @@ servers=[
   },
   {
     :hostname => "vm2",
+    :name => "java8-centos7-vm1",
+    :ram => 768,
+    :cpu => 1,
+    :ssh_port => 2201
+  },
+  {
+    :hostname => "vm3",
+    :name => "java8-centos7-vm1",
+    :ram => 768,
+    :cpu => 1,
+    :ssh_port => 2201
+  },
+  {
+    :hostname => "vm4",
     :name => "java8-centos7-vm2",
     :ram => 1024,
     :cpu => 2,
     :ssh_port => 2202
   },
   {
-    :hostname => "vm3",
+    :hostname => "vm5",
     :name => "java8-centos7-vm3",
-    :ram => 2048,
-    :cpu => 4,
+    :ram => 1024,
+    :cpu => 2,
     :ssh_port => 2203
   }
 ]
@@ -56,6 +70,20 @@ Vagrant.configure(2) do |config|
             node.vm.synced_folder "~", "/vagrant_data"
 
             node.vm.provision "shell", inline: <<-SHELL
+              cat > /etc/yum.conf <<'_EOF'
+[main]
+cachedir=/vagrant_data/tmp/yum/$basearch/$releasever
+keepcache=1
+debuglevel=2
+logfile=/var/log/yum.log
+exactarch=1
+obsoletes=1
+gpgcheck=1
+plugins=1
+installonly_limit=5
+bugtracker_url=http://bugs.centos.org/set_project.php?project_id=23&ref=http://bugs.centos.org/bug_report_page.php?category=yum
+distroverpkg=centos-release
+_EOF
               yum install epel-release java-1.8.0-openjdk-devel git net-tools nload psmisc -y
               groupadd docker
               usermod -aG docker vagrant
