@@ -20,6 +20,12 @@ $echo_cmd
 ./list-env.sh
 $echo_cmd $NC
 
+if [ "$DRIFTER_DURATION" == "" ]; then
+  $echo_cmd "${GREY}Infinite duration${NC}"
+  DRIFTER_DURATION=2147483647
+fi
+
+init_time=`date +%s`
 cd ansible
 while [ true ]; do
   $echo_cmd "Starting run on $(date)"
@@ -53,5 +59,10 @@ while [ true ]; do
     end_time=`date +%s`
     took=$((end_time - start_time))
     $echo_cmd "${CYAN}Took $took seconds.${NC}"
+
+    total_time=$((end_time - init_time))
+    if [ $total_time -gt $DRIFTER_DURATION ]; then
+      exit 0
+    fi
   fi
 done
