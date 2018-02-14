@@ -18,31 +18,31 @@ servers=[
   },
   {
     :hostname => "vm2",
-    :name => "java8-centos7-vm1",
-    :ram => 768,
-    :cpu => 1,
-    :ssh_port => 2201
-  },
-  {
-    :hostname => "vm3",
-    :name => "java8-centos7-vm1",
-    :ram => 768,
-    :cpu => 1,
-    :ssh_port => 2201
-  },
-  {
-    :hostname => "vm4",
     :name => "java8-centos7-vm2",
-    :ram => 1024,
-    :cpu => 2,
+    :ram => 768,
+    :cpu => 1,
     :ssh_port => 2202
   },
   {
-    :hostname => "vm5",
+    :hostname => "vm3",
     :name => "java8-centos7-vm3",
+    :ram => 768,
+    :cpu => 1,
+    :ssh_port => 2203
+  },
+  {
+    :hostname => "vm4",
+    :name => "java8-centos7-vm4",
     :ram => 1024,
     :cpu => 2,
-    :ssh_port => 2203
+    :ssh_port => 2204
+  },
+  {
+    :hostname => "vm5",
+    :name => "java8-centos7-vm5",
+    :ram => 1024,
+    :cpu => 2,
+    :ssh_port => 2205
   }
 ]
 
