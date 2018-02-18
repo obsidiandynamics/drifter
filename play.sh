@@ -31,9 +31,9 @@ while [ true ]; do
   $echo_cmd "Starting run on $(date)"
   start_time=`date +%s`
   if [ "$DRIFTER_VERBOSE" == "true" ]; then
-    ansible-playbook playbook.yaml -i inventory.sh -vvv
+    ansible-playbook playbook.yaml --forks=100 -i inventory.sh -vvv
   else
-    ansible-playbook playbook.yaml -i inventory.sh
+    ansible-playbook playbook.yaml --forks=100 -i inventory.sh
   fi
   exit_code=$?
   if [ "$exit_code" == "99" ]; then
