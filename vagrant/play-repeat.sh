@@ -12,21 +12,19 @@ cd $(dirname "$0")
 while [ true ]; do
   cd $vagrant_dir
   vagrant destroy -f
-  if [ $? -ne 0 ]; then
-    echo "Error destroying VMs"
-    exit 1
-  fi
 
   vagrant up
-  if [ $? -ne 0 ]; then
-    echo "Error launching VMs"
+  exitCode=$?
+  if [ $exitCode -ne 0 ]; then
+    echo "Error launching VMs (exit code $exitCode)"
      exit 1
   fi
   cd -
 
   ../play.sh
-  if [ $? -ne 0 ]; then
-    echo "Error running playbook"
+  exitCode=$?
+  if [ $exitCode -ne 0 ]; then
+    echo "Error running playbook (exit code $exitCode)"
     exit 1
   fi
 done
