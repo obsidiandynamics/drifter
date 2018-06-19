@@ -29,6 +29,17 @@
       git pull
     fi
 
+    # remember the current directory
+    repo_root_dir=$(pwd)
+
+    if [ {{target_repo_subdir}} != "" ]; then
+      if [ ! -e {{target_repo_subdir}} ]; then
+        echo "No subdirectory {{target_repo_subdir}}"
+        exit 1
+      fi
+      cd {{target_repo_subdir}}
+    fi 
+
     # clean up artefacts from prior builds
     if [ -e build/looped/latest-timestamp ]; then
       rm build/looped/latest-timestamp
@@ -43,7 +54,7 @@
     # run the test and observe the error code
     loop_args_array=(`echo "{{loop_args}}" | sed 's/,/\n/g'`)
     export DRIFTER_LOOP_LOG=true
-    ../drifter/loop.sh ${loop_args_array[@]}
+    ${repo_root_dir}/../drifter/loop.sh ${loop_args_array[@]}
     exit_code=$?
     
     mkdir -p build/looped
@@ -62,7 +73,7 @@
 
 - name: Retrieve artefacts
   fetch:
-    src: "{{drifter_home}}/{{repo_name}}/build/looped/latest.tgz"
+    src: "{{drifter_home}}/{{repo_name}}/{{target_repo_subdir}}/build/looped/latest.tgz"
     dest: "../out/{{ansible_host}}-{{ansible_port}}/latest.tgz"
     flat: true
   become: true
@@ -70,7 +81,7 @@
 
 - name: Retrieve timestamp
   fetch:
-    src: "{{drifter_home}}/{{repo_name}}/build/looped/latest-timestamp"
+    src: "{{drifter_home}}/{{repo_name}}/{{target_repo_subdir}}/build/looped/latest-timestamp"
     dest: "../out/{{ansible_host}}-{{ansible_port}}/latest-timestamp"
     flat: true
   become: true
@@ -78,7 +89,7 @@
 
 - name: Check success status
   shell: |
-    if [ ! -e {{drifter_home}}/{{repo_name}}/build/looped/success ]; then
+    if [ ! -e {{drifter_home}}/{{repo_name}}/{{target_repo_subdir}}/build/looped/success ]; then
       exit 1
     fi
   become: true

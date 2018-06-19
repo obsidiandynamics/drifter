@@ -13,6 +13,9 @@ fi
 if [ -z "$DRIFTER_VERBOSE" ]; then
   export DRIFTER_VERBOSE="false"
 fi
+if [ -z "$DRIFTER_TARGET_REPO_SUBDIR" ]; then
+  export DRIFTER_TARGET_REPO_SUBDIR=""
+fi
 
 # Mandatory parameters
 if [ -z "$DRIFTER_NODES" -o \
@@ -65,6 +68,7 @@ cat << EOM
       "target_repo": "$DRIFTER_TARGET_REPO",
       "target_branch": "$DRIFTER_TARGET_BRANCH",
       "repo_name": "$repo_name",
+      "target_repo_subdir": "$DRIFTER_TARGET_REPO_SUBDIR",
       "drifter_home": "$drifter_home",
       "loop_args": "$DRIFTER_LOOP_ARGS",
       "verbose": "$DRIFTER_VERBOSE"
