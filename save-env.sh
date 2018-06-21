@@ -17,6 +17,7 @@ fi
 
 echo "export DRIFTER_NODES=\"${DRIFTER_NODES}\"" >> $target_file
 echo "export DRIFTER_TARGET_REPO=\"${DRIFTER_TARGET_REPO}\"" >> $target_file
+echo "export DRIFTER_TARGET_REPO_SUBDIR=\"${DRIFTER_TARGET_REPO_SUBDIR}\"" >> $target_file
 echo "export DRIFTER_TARGET_BRANCH=\"${DRIFTER_TARGET_BRANCH}\"" >> $target_file
 echo "export DRIFTER_LOOP_ARGS=\"${DRIFTER_LOOP_ARGS}\"" >> $target_file
 echo "export DRIFTER_LIB_BRANCH=\"${DRIFTER_LIB_BRANCH}\"" >> $target_file
