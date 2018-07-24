@@ -76,6 +76,7 @@
     src: "{{drifter_home}}/{{repo_name}}/{{target_repo_subdir}}/build/looped/latest.tgz"
     dest: "../out/{{ansible_host}}-{{ansible_port}}/latest.tgz"
     flat: true
+    fail_on_missing: false
   become: true
   become_user: "{{ansible_user}}"
 
@@ -84,6 +85,7 @@
     src: "{{drifter_home}}/{{repo_name}}/{{target_repo_subdir}}/build/looped/latest-timestamp"
     dest: "../out/{{ansible_host}}-{{ansible_port}}/latest-timestamp"
     flat: true
+    fail_on_missing: false
   become: true
   become_user: "{{ansible_user}}"
 
