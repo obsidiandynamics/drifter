@@ -49,7 +49,7 @@ servers=[
 Vagrant.configure(2) do |config|
     servers.each do |machine|
         config.vm.define machine[:hostname] do |node|
-            node.vm.box = "box-java10-centos"
+            node.vm.box = "box-java10-centos7"
             node.vm.hostname = machine[:hostname]
 
             node.vm.provider "virtualbox" do |vb|
