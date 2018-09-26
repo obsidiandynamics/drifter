@@ -1,0 +1,76 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+servers=[
+  {
+    :hostname => "vm0",
+    :name => "java10-centos7-vm0",
+    :ram => 768,
+    :cpu => 1,
+    :ssh_port => 2200
+  },
+  {
+    :hostname => "vm1",
+    :name => "java10-centos7-vm1",
+    :ram => 768,
+    :cpu => 1,
+    :ssh_port => 2201
+  },
+  {
+    :hostname => "vm2",
+    :name => "java10-centos7-vm2",
+    :ram => 768,
+    :cpu => 1,
+    :ssh_port => 2202
+  },
+  {
+    :hostname => "vm3",
+    :name => "java10-centos7-vm3",
+    :ram => 768,
+    :cpu => 1,
+    :ssh_port => 2203
+  },
+  {
+    :hostname => "vm4",
+    :name => "java10-centos7-vm4",
+    :ram => 1024,
+    :cpu => 2,
+    :ssh_port => 2204
+  },
+  {
+    :hostname => "vm5",
+    :name => "java10-centos7-vm5",
+    :ram => 1024,
+    :cpu => 2,
+    :ssh_port => 2205
+  }
+]
+
+Vagrant.configure(2) do |config|
+    servers.each do |machine|
+        config.vm.define machine[:hostname] do |node|
+            node.vm.box = "box-java10-centos"
+            node.vm.hostname = machine[:hostname]
+
+            node.vm.provider "virtualbox" do |vb|
+              vb.gui = false
+              vb.name = machine[:name]
+              vb.memory = machine[:ram]
+              vb.cpus = machine[:cpu]
+            end
+  
+            if Vagrant.has_plugin?("vagrant-timezone")
+              node.timezone.value = :host
+            end
+
+            node.vm.network :forwarded_port, guest: 22, host: machine[:ssh_port], id: "ssh"
+            node.ssh.insert_key = false
+            node.ssh.port = machine[:ssh_port]
+            node.vm.box_check_update = false
+            node.vm.synced_folder "~", "/vagrant_data"
+
+            node.vm.provision "shell", inline: <<-SHELL
+            SHELL
+        end
+    end
+end
