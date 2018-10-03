@@ -5,42 +5,42 @@ servers=[
   {
     :hostname => "vm0",
     :name => "java11-centos7-vm0",
-    :ram => 768,
+    :ram => 2048,
     :cpu => 1,
     :ssh_port => 2200
   },
   {
     :hostname => "vm1",
     :name => "java11-centos7-vm1",
-    :ram => 768,
+    :ram => 2048,
     :cpu => 1,
     :ssh_port => 2201
   },
   {
     :hostname => "vm2",
     :name => "java11-centos7-vm2",
-    :ram => 768,
+    :ram => 2048,
     :cpu => 1,
     :ssh_port => 2202
   },
   {
     :hostname => "vm3",
     :name => "java11-centos7-vm3",
-    :ram => 768,
+    :ram => 2048,
     :cpu => 1,
     :ssh_port => 2203
   },
   {
     :hostname => "vm4",
     :name => "java11-centos7-vm4",
-    :ram => 1024,
+    :ram => 2048,
     :cpu => 2,
     :ssh_port => 2204
   },
   {
     :hostname => "vm5",
     :name => "java11-centos7-vm5",
-    :ram => 1024,
+    :ram => 2048,
     :cpu => 2,
     :ssh_port => 2205
   }
