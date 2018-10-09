@@ -95,10 +95,12 @@ _EOF
               alternatives --install /usr/bin/jar jar /usr/lib/jvm/jdk-10.0.2/bin/jar 1
               alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk-10.0.2/bin/javac 1
               alternatives --install /usr/bin/jps jps /usr/lib/jvm/jdk-10.0.2/bin/jps 1
+              alternatives --install /usr/bin/jshell jshell /usr/lib/jvm/jdk-10.0.2/bin/jshell 1
               alternatives --set java /usr/lib/jvm/jdk-10.0.2/bin/java
               alternatives --set jar /usr/lib/jvm/jdk-10.0.2/bin/jar
               alternatives --set javac /usr/lib/jvm/jdk-10.0.2/bin/javac
               alternatives --set jps /usr/lib/jvm/jdk-10.0.2/bin/jps
+              alternatives --set jshell /usr/lib/jvm/jdk-10.0.2/bin/jshell
               groupadd docker
               usermod -aG docker vagrant 
               yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
