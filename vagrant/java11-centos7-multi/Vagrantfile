@@ -86,12 +86,13 @@ bugtracker_url=http://bugs.centos.org/set_project.php?project_id=23&ref=http://b
 distroverpkg=centos-release
 _EOF
 
-              export JDK_VERSION=11
+              export JDK_VERSION=11.0.2
               yum install epel-release git net-tools nload psmisc wget kernel-devel -y
-              wget -c --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/11+28/55eed80b163941c8885ad9298e6d786a/jdk-11_linux-x64_bin.tar.gz
+              #wget -c --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/11+28/55eed80b163941c8885ad9298e6d786a/jdk-11_linux-x64_bin.tar.gz
+              wget -c https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
               mkdir -p /usr/lib/jvm
-              tar zxf jdk-${JDK_VERSION}_linux-x64_bin.tar.gz -C /usr/lib/jvm 
-              rm *jdk*.tar.gz
+              tar zxf openjdk-${JDK_VERSION}_linux-x64_bin.tar.gz -C /usr/lib/jvm 
+              rm openjdk-${JDK_VERSION}_linux-x64_bin.tar.gz
               alternatives --install /usr/bin/java java /usr/lib/jvm/jdk-${JDK_VERSION}/bin/java 1
               alternatives --install /usr/bin/jar jar /usr/lib/jvm/jdk-${JDK_VERSION}/bin/jar 1
               alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk-${JDK_VERSION}/bin/javac 1
@@ -108,7 +109,7 @@ _EOF
               yum install docker-ce -y
               systemctl enable docker
               systemctl start docker
-              curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+              curl -L https://github.com/docker/compose/releases/download/1.23.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
               chmod +x /usr/local/bin/docker-compose
             SHELL
         end
