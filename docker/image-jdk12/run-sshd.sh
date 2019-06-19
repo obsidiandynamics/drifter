@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 PORT=22
 LOG_FILE=sshd.log
