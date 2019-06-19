@@ -5,45 +5,45 @@ servers=[
   {
     :hostname => "vm0",
     :name => "java11-centos7-vm0",
-    :ram => 2048,
+    :ram => 1792,
     :cpu => 1,
     :ssh_port => 2200
   },
   {
     :hostname => "vm1",
     :name => "java11-centos7-vm1",
-    :ram => 2048,
+    :ram => 1792,
     :cpu => 1,
     :ssh_port => 2201
   },
   {
     :hostname => "vm2",
     :name => "java11-centos7-vm2",
-    :ram => 2048,
+    :ram => 1792,
     :cpu => 1,
     :ssh_port => 2202
   },
   {
     :hostname => "vm3",
     :name => "java11-centos7-vm3",
-    :ram => 2048,
+    :ram => 1792,
     :cpu => 1,
     :ssh_port => 2203
   },
-  {
-    :hostname => "vm4",
-    :name => "java11-centos7-vm4",
-    :ram => 2048,
-    :cpu => 2,
-    :ssh_port => 2204
-  },
-  {
-    :hostname => "vm5",
-    :name => "java11-centos7-vm5",
-    :ram => 2048,
-    :cpu => 2,
-    :ssh_port => 2205
-  }
+#  {
+#    :hostname => "vm4",
+#    :name => "java11-centos7-vm4",
+#    :ram => 1792,
+#    :cpu => 2,
+#    :ssh_port => 2204
+#  },
+#  {
+#    :hostname => "vm5",
+#    :name => "java11-centos7-vm5",
+#    :ram => 1792,
+#    :cpu => 2,
+#    :ssh_port => 2205
+#  }
 ]
 
 Vagrant.configure(2) do |config|
@@ -51,6 +51,7 @@ Vagrant.configure(2) do |config|
         config.vm.define machine[:hostname] do |node|
             node.vm.box = "box-java11-centos7"
             node.vm.hostname = machine[:hostname]
+            config.vbguest.installer_arguments = ['--nox11', '-- --do']
 
             node.vm.provider "virtualbox" do |vb|
               vb.gui = false
