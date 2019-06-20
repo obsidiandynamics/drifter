@@ -7,4 +7,4 @@ fi
 
 vm_index=$1
 port=$(($vm_index + 2200))
-ssh root@localhost -p $port -t -i ~/.vagrant.d/insecure_private_key "export PS1='\[\e[1;32m\]\u@vm${vm_index}~ssh# ' && bash"
+ssh root@localhost -p $port -t -i ~/.vagrant.d/insecure_private_key "export PS1='\[\e[1;32m\]\u@vm${vm_index}~ssh#\[\e[0;0m\] ' && bash"

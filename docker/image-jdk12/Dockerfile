@@ -6,6 +6,7 @@ COPY run-sshd.sh .
 RUN set -x; \
     chmod +x run-sshd.sh; \
     echo root:root | chpasswd; \
-    yum install -y git openssh-server which iputils telnet
-
+    yum-config-manager --enable ol7_addons; \
+    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo; \
+    yum install -y docker-ce git openssh-server which iputils telnet docker-compose vim net-tools
 CMD ["./run-sshd.sh"]
