@@ -6,6 +6,6 @@ COPY run-sshd.sh .
 RUN set -x; \
     chmod +x run-sshd.sh; \
     echo root:root | chpasswd; \
-    yum install -y git openssh-server which
+    yum install -y git openssh-server which iputils telnet
 
 CMD ["./run-sshd.sh"]
