@@ -14,5 +14,5 @@ docker run -it --rm --name drifter-jdk12 -p 22:22 obsidiandynamics/drifter-jdk12
 
 Connect to the image:
 ```sh
-ssh root@localhost
+ssh root@localhost -i ~/.vagrant.d/insecure_private_key
 ```

@@ -1,14 +1,15 @@
 version: "2"
 services:
-  vm0:
+  ctr0:
     image: obsidiandynamics/drifter-jdk12
     restart: "no"
     ports:
       - "2200:22"
     environment:
+      DIND_HOST: dind0
       DOCKER_HOST: tcp://dind:2375
     depends_on:
-      - "dind"
+      - "dind0"
     #  - "kafka"
     #  - "postgres"
     #volumes:
@@ -27,7 +28,7 @@ services:
     #  - "postgres"
     #volumes:
     #  - /var/run/docker.sock:/var/run/docker.sock
-  dind:
+  dind0:
     image: docker:dind
     restart: "no"
     privileged: true
