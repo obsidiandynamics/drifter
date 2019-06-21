@@ -22,6 +22,6 @@ echo "export DOCKER_HOST=tcp://dind:2375" > ~/.bashrc
 
 PORT=22
 LOG_FILE=sshd.log
-/usr/sbin/sshd -p $PORT -E $LOG_FILE
+/usr/sbin/sshd -p $PORT -E $LOG_FILE -u0
 echo "SSH daemon running on port $PORT"
 tail -f $LOG_FILE
