@@ -1,0 +1,54 @@
+version: "2"
+services:
+  ctr0:
+    image: obsidiandynamics/drifter-jdk12
+    restart: "no"
+    ports:
+      - "2200:22"
+    environment:
+      DIND_HOST: dind0
+    depends_on:
+      - "dind0"
+  ctr1:
+    image: obsidiandynamics/drifter-jdk12
+    restart: "no"
+    ports:
+      - "2201:22"
+    environment:
+      DIND_HOST: dind1
+    depends_on:
+      - "dind1"
+  ctr2:
+    image: obsidiandynamics/drifter-jdk12
+    restart: "no"
+    ports:
+      - "2202:22"
+    environment:
+      DIND_HOST: dind2
+    depends_on:
+      - "dind2"
+  ctr3:
+    image: obsidiandynamics/drifter-jdk12
+    restart: "no"
+    ports:
+      - "2203:22"
+    environment:
+      DIND_HOST: dind3
+    depends_on:
+      - "dind3"
+  dind0:
+    image: docker:dind
+    restart: "no"
+    privileged: true
+  dind1:
+    image: docker:dind
+    restart: "no"
+    privileged: true
+  dind2:
+    image: docker:dind
+    restart: "no"
+    privileged: true
+  dind3:
+    image: docker:dind
+    restart: "no"
+    privileged: true

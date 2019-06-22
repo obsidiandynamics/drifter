@@ -18,6 +18,7 @@ RUN echo "UseDNS no" >> /etc/ssh/sshd_config; \
     echo "RhostsRSAAuthentication no" >> /etc/ssh/sshd_config; \
     echo "HostbasedAuthentication no" >> /etc/ssh/sshd_config
 COPY launcher.sh .
-RUN chmod +x launcher.sh
+RUN chmod +x launcher.sh; \
+    chmod 600 /root/.ssh/authorized_keys
 
 CMD ["./launcher.sh"]
