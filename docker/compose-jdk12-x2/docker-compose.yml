@@ -22,7 +22,11 @@ services:
     image: docker:dind
     restart: "no"
     privileged: true
+    environment: 
+      DOCKER_TLS_CERTDIR: ""
   dind1:
     image: docker:dind
     restart: "no"
     privileged: true
+    environment: 
+      DOCKER_TLS_CERTDIR: ""

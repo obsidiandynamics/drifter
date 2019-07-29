@@ -40,15 +40,23 @@ services:
     image: docker:dind
     restart: "no"
     privileged: true
+    environment: 
+      DOCKER_TLS_CERTDIR: ""
   dind1:
     image: docker:dind
     restart: "no"
     privileged: true
+    environment: 
+      DOCKER_TLS_CERTDIR: ""
   dind2:
     image: docker:dind
     restart: "no"
     privileged: true
+    environment: 
+      DOCKER_TLS_CERTDIR: ""
   dind3:
     image: docker:dind
     restart: "no"
     privileged: true
+    environment: 
+      DOCKER_TLS_CERTDIR: ""
