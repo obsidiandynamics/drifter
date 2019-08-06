@@ -5,8 +5,6 @@ services:
     restart: "no"
     ports:
       - "2200:22"
-    environment:
-      DIND_HOST: localhost
     volumes: 
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on: 
@@ -19,8 +17,6 @@ services:
   consul0:
     image: consul 
     restart: "no"
-    ports:
-      - "8500:8500"
     environment: {}
     networks:
       net0:
@@ -29,17 +25,14 @@ services:
   kafka0:
     image: obsidiandynamics/kafka
     restart: "no"
-    ports:
-      - "2181:2181"
-      - "9092:9092"
     networks:
       net0:
         aliases: 
           - kafka
     environment:
-      KAFKA_LISTENERS: "INTERNAL://:29092,EXTERNAL://:9092"
-      KAFKA_ADVERTISED_LISTENERS: "INTERNAL://kafka:29092,EXTERNAL://localhost:9092"
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT"
+      KAFKA_LISTENERS: "INTERNAL://:9092"
+      KAFKA_ADVERTISED_LISTENERS: "INTERNAL://kafka:9092"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "INTERNAL:PLAINTEXT"
       KAFKA_INTER_BROKER_LISTENER_NAME: "INTERNAL"
       KAFKA_ZOOKEEPER_SESSION_TIMEOUT: "6000"
       KAFKA_RESTART_ATTEMPTS: "10"
@@ -48,8 +41,6 @@ services:
   postgres0:
     image: postgres
     restart: "no"
-    ports:
-      - "5432:5432"
     environment: {}
     networks:
       net0:
@@ -61,8 +52,6 @@ services:
     restart: "no"
     ports:
       - "2201:22"
-    environment:
-      DIND_HOST: localhost
     volumes: 
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
@@ -71,8 +60,6 @@ services:
   consul1:
     image: consul 
     restart: "no"
-    ports:
-      - "8500:8500"
     environment: {}
     networks:
       net1:
@@ -81,17 +68,14 @@ services:
   kafka1:
     image: obsidiandynamics/kafka
     restart: "no"
-    ports:
-      - "2181:2181"
-      - "9092:9092"
     networks:
       net1:
         aliases: 
           - kafka
     environment:
-      KAFKA_LISTENERS: "INTERNAL://:29092,EXTERNAL://:9092"
-      KAFKA_ADVERTISED_LISTENERS: "INTERNAL://kafka:29092,EXTERNAL://localhost:9092"
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT"
+      KAFKA_LISTENERS: "INTERNAL://:9092"
+      KAFKA_ADVERTISED_LISTENERS: "INTERNAL://kafka:9092"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "INTERNAL:PLAINTEXT"
       KAFKA_INTER_BROKER_LISTENER_NAME: "INTERNAL"
       KAFKA_ZOOKEEPER_SESSION_TIMEOUT: "6000"
       KAFKA_RESTART_ATTEMPTS: "10"
@@ -100,8 +84,6 @@ services:
   postgres1:
     image: postgres
     restart: "no"
-    ports:
-      - "5432:5432"
     environment: {}
     networks:
       net1:
@@ -110,7 +92,5 @@ services:
 
 networks:
   net: {}
-  net0:
-    driver: macvlan
-  net1:
-    driver: macvlan
+  net0: {}
+  net1: {}
