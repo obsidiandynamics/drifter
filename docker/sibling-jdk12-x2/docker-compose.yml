@@ -92,5 +92,7 @@ services:
 
 networks:
   net: {}
-  net0: {}
-  net1: {}
+  net0:
+    driver: ipvlan
+  net1:
+    driver: ipvlan
