@@ -3,7 +3,7 @@ set -e
 
 if [ -f /etc/hosts.original ]; then
   echo "Restoring original hosts file"
-  mv /etc/hosts.original /etc/hosts
+  cp /etc/hosts.original /etc/hosts
 else
   echo "Preserving original hosts file"
   cp /etc/hosts /etc/hosts.original
